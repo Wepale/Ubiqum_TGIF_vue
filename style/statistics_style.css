@@ -1,0 +1,176 @@
+.allPage {
+  display: grid;
+  grid-template-columns: 0.2fr 2fr 2fr 0.2fr;
+  grid-gap: 1.2em;
+  background-color: #485563;
+  font-family: 'Playfair Display', serif;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.table th {
+  background-color: darkgrey;
+  color: white;
+  font-size: 1.2em;
+}
+
+.allPage > div {
+  background-color: whitesmoke;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+a {
+  color: #6c757d;
+  font-weight: bold
+}
+
+a:hover {
+  color: #d49f34;
+  /* text-shadow: 1px 1px grey; */
+}
+
+.topHeaderRight a {
+  color: white;
+}
+
+.topHeaderRight a:hover {
+  color: #d49f34;
+}
+
+.table {
+  background-color: white;
+}
+
+.table th, td {
+  text-align: center;
+  border: 0;
+}
+
+.mainTitle {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  margin-top: 2em;
+  background-image: url("../images/capitol.jpg");
+  background-size: cover;
+  color: white;
+  background-position: 16em top;
+}
+
+.nav-link {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topHeaderLeft {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 15%;
+}
+
+.topHeaderRight {
+  align-items: center;
+  display: flex;
+  width: 12%;
+  justify-content: space-around;
+}
+
+.logo {
+  width: 45%;
+}
+
+.emailIcon {
+  width: 30%;
+}
+
+.mainNav {
+  grid-column: 2/4;
+  grid-row: 2/3;
+  background-image: url("../images/capitol.jpg");
+  background-size: cover;
+  color: white;
+  background-position: 16em 32em;
+}
+
+.introduction {
+  grid-column: 2/3;
+  grid-row: 3/4;
+
+}
+
+.introduction p {
+  text-indent: 1em;
+  padding-top: 2em;
+}
+
+.firstTable {
+  grid-column: 3/4;
+  grid-row: 3/4;
+}
+
+.fullRowLine {
+  grid-column: 2/4;
+  grid-row: 4/5;
+  background-color: transparent;
+}
+
+.fullRowLine hr {
+  background-color: white;
+  height: 0.5em;
+  margin: 0;
+  border-radius: 1em;
+}
+#fullRowLine {
+  background-color: transparent;
+  padding: 0;
+}
+
+.secondTable {
+  grid-column: 2/3;
+  grid-row: 5/6;
+}
+
+.thirdTable {
+  grid-column: 3/4;
+  grid-row: 5/6;
+}
+
+.footer {
+  grid-column: 2/4;
+  grid-row: 6/7;
+  background-color: black;
+  color: white;
+  margin: 1em 0em 1em 0em;
+  padding: 2em;
+  text-align: center;
+  border-radius: 1em;
+}
+
+.loader {
+  /* overflow: hidden; */
+  border: 16px solid #a9a9a9;
+  border-radius: 50%;
+  border-top: 16px solid  #d49f34;
+  width: 120px;
+  height: 120px;
+  z-index: 500000000;
+  animation: spin 2s linear infinite;
+  vertical-align: middle;
+  position: relative;
+  left: 43%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset=UTF-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="style/statistics_style.css">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+</head>
+
+<body>
+  <div id="myVueElement" class="allPage" v-cloak>
+    <div class="mainTitle">
+      <header>
+        <div class="topHeader">
+          <div class="topHeaderLeft">
+            <img src="images/standard.png" alt="Logo" class="logo">
+            <h1>TGIF</h1>
+          </div>
+          <div class="topHeaderRight">
+            <img src="images/email_icon_white.png" alt="Contact icon" class="emailIcon">
+            <a href="mailto:info@tgif.net">info@tgif.net</a>
+          </div>
+        </div>
+    </div>
+    <div class="mainNav">
+      <div class="navDiv">
+        <nav>
+          <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="index_vue.html">Home</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Congress 115</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="senate_vue.html">Senate</a>
+                <a class="dropdown-item" href="houseOfRepresentatives_vue.html">House</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="attendance_senate_vue.html">Senate</a>
+                <a class="dropdown-item" href="attendance_house_vue.html">House</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Party Loyalty</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="party_loyalty_senate_vue.html">Senate</a>
+                <a class="dropdown-item" href="party_loyalty_house_vue.html">House</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    </header>
+    <!--Table container-->
+    <div class="introduction">
+      <h2>Party Loyalty</h2>
+      <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
+    </div>
+    <div class="firstTable">
+      <h2>Senate at a glance</h2>
+      <div :class="{ loader: !isLoaded }">
+        <div v-if="showTable">
+          <table id="table1" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th v-for="title of atGlanceTableTitles">{{ title }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="object of partys">
+                <td v-for="key of atGlanceTableKeys">{{ object[key] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="fullRowLine" class="fullRowLine">
+      <hr>
+    </div>
+
+    <div class="secondTable">
+      <h2>Least Loyal (Bottom 10% of Party)</h2>
+      <div :class="{ loader: !isLoaded }">
+        <div v-if="showTable">
+          <table ref="table_2" id="table2" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th v-for="title of loyalTableTitles">{{ title }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member of topMembersLessLoyal">
+                <td v-for="key of loyalTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }}
+                  </span><span v-else> {{ checkNullValue(member[key]) }} </span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="thirdTable">
+      <h2>Most Loyal (Top 10% of Party)</h2>
+      <div :class="{ loader: !isLoaded }">
+        <div v-if="showTable">
+          <table ref="table_3" id="table3" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th v-for="title of loyalTableTitles">{{ title }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member of topMembersMostLoyal">
+                <td v-for="key of loyalTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }}
+                  </span><span v-else> {{ checkNullValue(member[key]) }} </span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- </div> -->
+    <footer class="footer">
+      <div>
+        <p>© 2019 TGIF | All Rights Reserved</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="scripts/vue.js"></script>
+  <script src="dataFiles/115_house.js"></script>
+  <script src="scripts/statistics_vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>
