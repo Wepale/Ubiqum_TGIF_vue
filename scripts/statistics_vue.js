@@ -83,14 +83,22 @@ const myVue = new Vue({
       return this.getMembersOfParty(membersArr, party).length;
     },
 
-    votingPartyAverage(membersArr, party) {
-      for (member of membersArr) {
-        let votesResults = membersArr.map(member => member.votes_with_party_pct) //return an array whit the value of a key of all the objects
-        if (votesResults.length) {
-          return (votesResults.reduce((vote1, vote2) => vote1 + vote2) / votesResults.length).toFixed(2);
-        }
-      }
+    votingPartyAverage(membersArr) {
+        return (membersArr.map(member => member.votes_with_party_pct) //return an array whit the value of a key of all the objects
+        .reduce((vote1, vote2) => vote1 + vote2) / membersArr.length).toFixed(2); //Sum all the values of the previous array
     },
+
+
+
+
+    // votingPartyAverage(membersArr) {
+    //   for (member of membersArr) {
+    //     let votesResults = membersArr.map(member => member.votes_with_party_pct) //return an array whit the value of a key of all the objects
+    //     if (votesResults.length) {
+    //       return (votesResults.reduce((vote1, vote2) => vote1 + vote2) / votesResults.length).toFixed(2);
+    //     }
+    //   }
+    // },
 
     orderMembersByKeyValue(membersArr, key) {
       return membersArr.sort((a, b) => (a[key] > b[key]) ? 1 : -1);
@@ -98,14 +106,12 @@ const myVue = new Vue({
 
     topOrLowestMembers(membersArr, percent, firstOrLast, key) {
       let membersToGet = 0;
-      if (membersArr.length < 10) {
-        membersToGet = 1;
-      } else {
-        membersToGet = Math.round(membersArr.length * (percent / 100));
-      }
+      membersArr.length < 10 ? membersToGet = 1 : membersToGet = Math.round(membersArr.length * (percent / 100));
+
       if (firstOrLast === "last") {
-        membersArr.reverse()
+        membersArr = membersArr.slice().reverse()
       }
+
       for (let i = membersToGet; i < membersArr.length; i++) {
         if (membersArr[i][key] === membersArr[i - 1][key]) {
           membersToGet++;
@@ -132,6 +138,7 @@ const myVue = new Vue({
         parentDiv2.style.gridRow = `${rowEnd - 2}/${rowEnd}`;
       }
 
+      // Move footer to lowest row
       while (parentDiv2.nextElementSibling != null) {
         rowEnd++;
         parentDiv2.nextElementSibling.style.gridRow = `${rowEnd-1}/${rowEnd}`;
@@ -141,7 +148,7 @@ const myVue = new Vue({
 
     setStatisticsValues(membersArr, statisticsByPartyArr) {
       let party = null;
-      for (element of statisticsByPartyArr) {
+      statisticsByPartyArr.forEach(element => {
         switch (element.idParty) {
           case "Democrats":
             party = "D";
@@ -178,7 +185,7 @@ const myVue = new Vue({
         if (element.numbersOfReps === 0) {
           element.averageVoteParty = 0 + "%";
         }
-      }
+      })
     },
 
     joinName(member) {
@@ -196,12 +203,14 @@ const myVue = new Vue({
       return keysArr.filter(data => data !== "middle_name" && data !== "last_name");
     },
 
+    /*
+    * Check if the argument is null
+    *
+    * @param {any type} the value we want to check (any type)
+    * @return {argument or string} the argument if not null, "---" otherwise
+    */
     checkNullValue(value) {
-      if (value !== null) {
-        return value;
-      } else {
-        return "---";
-      }
+      return value === null || value === undefined ? "---" : value;
     },
 
     changeGridRowOnLongest(element1, element2, rowEnd) {
