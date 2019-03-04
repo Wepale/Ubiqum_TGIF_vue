@@ -104,7 +104,7 @@
             </thead>
             <tbody>
               <tr v-for="member of topMembersMissedVotes">
-                <td v-for="key of engagedTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }} </span><span v-else> {{ checkNullValue(member[key]) }}
+                <td v-for="key of engagedTableKeys"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }} </span><span v-else> {{ checkNullValue(member[key]) }}
                   </span></td>
               </tr>
             </tbody>
@@ -125,8 +125,11 @@
             </thead>
             <tbody>
               <tr v-for="member of topMembersVotes">
-                <td v-for="key of engagedTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }} </span><span v-else> {{ checkNullValue(member[key]) }}
-                  </span></td>
+                <td v-for="key of engagedTableKeys">
+                  <a v-if="key === 'first_name'" :href="member.url">{{ joinName(member) }}</a>
+                  <span v-else-if="key === 'missed_votes_pct'">{{ `${checkNullValue(member[key])}%` }}</span>
+                  <span v-else> {{ checkNullValue(member[key]) }}</span>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -99,8 +99,11 @@
             </thead>
             <tbody>
               <tr v-for="member of topMembersLessLoyal">
-                <td v-for="key of loyalTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }}</span><span
-                    v-else> {{ checkNullValue(member[key]) }} </span></td>
+                <td v-for="key of loyalTableKeys">
+                  <a v-if="key === 'first_name'" :href="member.url">{{ joinName(member) }}</a>
+                  <span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'">{{ `${checkNullValue(member[key])}%` }}</span>
+                  <span v-else>{{ checkNullValue(member[key]) }}</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -120,8 +123,11 @@
             </thead>
             <tbody>
               <tr v-for="member of topMembersMostLoyal">
-                <td v-for="key of loyalTableKeysMod"><a v-if="key === 'first_name'" :href="member.url"> {{ joinName(member) }} </a><span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'"> {{ `${checkNullValue(member[key])}%` }}
-                  </span><span v-else> {{ checkNullValue(member[key]) }} </span></td>
+                <td v-for="key of loyalTableKeys">
+                  <a v-if="key === 'first_name'" :href="member.url">{{ joinName(member) }}</a>
+                  <span v-else-if="key === 'votes_with_party_pct' || key === 'missed_votes_pct'">{{ `${checkNullValue(member[key])}%` }}</span>
+                  <span v-else>{{ checkNullValue(member[key]) }}</span>
+                </td>
               </tr>
             </tbody>
           </table>
